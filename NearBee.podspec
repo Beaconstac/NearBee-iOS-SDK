@@ -9,7 +9,7 @@ s.homepage     = 'https://github.com/Beaconstac/NearBee-iOS-SDK'
 
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
-  s.source       = { :git => 'https://github.com/Beaconstac/NearBee-iOS-SDK.git', :tag => "1.0" }
+  s.source       = { :git => 'https://github.com/Beaconstac/NearBee-iOS-SDK.git', :tag => "v1.0" }
 
   s.vendored_frameworks = 'NearBee/NearBee.framework'
 
