@@ -1,0 +1,10 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '10.0'
+
+target 'SampleApp' do
+    use_frameworks!
+    
+    pod 'EddystoneScanner'
+    pod 'Socket.IO-Client-Swift'
+    pod 'Imaginary'
+end
