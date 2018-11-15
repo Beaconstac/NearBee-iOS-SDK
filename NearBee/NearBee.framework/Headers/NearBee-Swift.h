@@ -163,9 +163,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # define SWIFT_DEPRECATED_OBJC(Msg) SWIFT_DEPRECATED_MSG(Msg)
 #endif
 #if __has_feature(modules)
-@import CoreBluetooth;
 @import CoreData;
-@import CoreLocation;
 @import EddystoneScanner;
 @import Foundation;
 @import ObjectiveC;
@@ -188,45 +186,13 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+@protocol NearBeeDelegate;
 @class UNNotification;
 
-/// Nearby
-/// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
 @interface NearBee : NSObject
-/// If the scanner is in Progress
-@property (nonatomic, readonly) BOOL scanningInProgress;
-/// Cache Settings
-@property (nonatomic, readonly) BOOL ignoreCache;
-// 'beaconFetchedResultsController' below
-/// State manager
-@property (nonatomic) BOOL isSyncing;
-/// Notification Sound Setting
-@property (nonatomic) BOOL enableNotificationSound;
-/// Initialize the SDK using this class method
-/// <ul>
-///   <li>
-///     Parameters:
-///   </li>
-///   <li>
-///     token: Part of the Beaconstac dashboard, to authorize for NearBee SDK
-///   </li>
-///   <li>
-///     organization: Part of the Beaconstac dashboard, to authorize for NearBee SDK
-///   </li>
-///   <li>
-///     completion: this is called once the SDK gets initialised successfully or if any error occurs.
-///   </li>
-/// </ul>
-+ (void)shared:(NSString * _Nonnull)token organization:(NSInteger)organization completion:(void (^ _Nonnull)(NearBee * _Nullable, NSError * _Nullable))completion;
-/// Get the sharedInstance at any point in time after initializing using token
-///
-/// throws:
-/// If you never initialized using token
-///
-/// returns:
-/// Nearby instance or nil
-+ (NearBee * _Nullable)sharedAndReturnError:(NSError * _Nullable * _Nullable)error SWIFT_WARN_UNUSED_RESULT;
+@property (nonatomic, weak) id <NearBeeDelegate> _Nullable delegate;
++ (NearBee * _Nullable)initNearBee SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
 /// Start scanning for beacons
@@ -234,42 +200,12 @@ SWIFT_CLASS("_TtC7NearBee7NearBee")
 /// Stop all activities
 - (void)stopScanning;
 /// Do everything again ignoring local cache
-- (void)ignoreCacheOnce;
+- (void)clearNotificationCache;
+/// Show notification in background
+- (void)enableBackgroundNotification:(BOOL)enable;
+- (void)enableNotificationSound:(BOOL)enable;
 - (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification SWIFT_WARN_UNUSED_RESULT;
 - (void)displayContentOfEddystoneUrl:(NSString * _Nonnull)eddystoneUrl;
-@end
-
-@class CBCentralManager;
-
-@interface NearBee (SWIFT_EXTENSION(NearBee)) <CBCentralManagerDelegate>
-- (void)centralManagerDidUpdateState:(CBCentralManager * _Nonnull)central;
-@end
-
-@class DispatchTimer;
-
-@interface NearBee (SWIFT_EXTENSION(NearBee)) <DispatchTimerDelegate>
-- (void)timerCalledWithTimer:(DispatchTimer * _Nullable)dispatchTimer;
-@end
-
-@class Scanner;
-
-@interface NearBee (SWIFT_EXTENSION(NearBee)) <ScannerDelegate>
-/// Update beacon last seen here
-- (void)didFindBeaconWithScanner:(Scanner * _Nonnull)scanner beacon:(Beacon * _Nonnull)beacon;
-- (void)didLoseBeaconWithScanner:(Scanner * _Nonnull)scanner beacon:(Beacon * _Nonnull)beacon;
-- (void)didUpdateBeaconWithScanner:(Scanner * _Nonnull)scanner beacon:(Beacon * _Nonnull)beacon;
-@end
-
-@class CLLocationManager;
-@class CLRegion;
-
-@interface NearBee (SWIFT_EXTENSION(NearBee)) <CLLocationManagerDelegate>
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion * _Nonnull)region;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didEnterRegion:(CLRegion * _Nonnull)region;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didExitRegion:(CLRegion * _Nonnull)region;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager didStartMonitoringForRegion:(CLRegion * _Nonnull)region;
-- (void)locationManager:(CLLocationManager * _Nonnull)manager monitoringDidFailForRegion:(CLRegion * _Nullable)region withError:(NSError * _Nonnull)error;
 @end
 
 @class NSEntityDescription;
@@ -284,28 +220,24 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 
 
 @interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
-@property (nonatomic) float advertisingInterval;
-@property (nonatomic) BOOL detected;
-@property (nonatomic, copy) NSString * _Nullable eddystoneInstance;
-@property (nonatomic, copy) NSString * _Nullable eddystoneNamespace;
 @property (nonatomic, copy) NSString * _Nullable eddystoneUID;
 @property (nonatomic, copy) NSString * _Nullable eddystoneURL;
-@property (nonatomic) BOOL physicalWebActive;
 @property (nonatomic, copy) NSString * _Nullable physicalWebDescription;
 @property (nonatomic, copy) NSString * _Nullable physicalWebEddystoneURL;
 @property (nonatomic, copy) NSString * _Nullable physicalWebIcon;
 @property (nonatomic, copy) NSString * _Nullable physicalWebTitle;
 @property (nonatomic, copy) NSDate * _Nullable physicalWebUpdated;
-@property (nonatomic) float rssi;
-@property (nonatomic) float temperature;
-@property (nonatomic) float txPower;
-@property (nonatomic, copy) NSString * _Nullable uuid;
-@property (nonatomic) float voltage;
 @end
 
-@interface NearBee (SWIFT_EXTENSION(NearBee))
-/// Main core data fetched results controller
-@property (nonatomic, strong) NSFetchedResultsController<NearBeeBeacon *> * _Nonnull beaconFetchedResultsController;
+
+/// Nearby
+/// Class that handles all the tasks
+SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
+@protocol NearBeeDelegate
+- (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)onBeaconsFound:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)onError:(NSError * _Nonnull)error;
 @end
 
 #if __has_attribute(external_source_symbol)

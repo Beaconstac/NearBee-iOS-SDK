@@ -61,7 +61,17 @@ If you are using the region monitoring API's from advanced location manager, mak
 
 ## Set Up
 
-1. Import the framework header in your class
+1. In the app's `Info.plist` add the below mentioned keys and the values
+
+    key: co.nearbee.api_key
+    value: __MY_DEVELOPER_TOKEN__
+
+    key: co.nearbee.organization_id
+    value: __MY_ORGANIZATION__
+
+    Note: Without the key: and value: suffix
+
+2. Import the framework header in your class
 
 ```swift
 import NearBee
@@ -71,136 +81,63 @@ import NearBee
 import <NearBee/NearBee.h>
 ```
 
-2. Initialize `NearBee` using __one-line initialization__, the initialization starts scanning for beacons immediately.
+3. Initialize `NearBee` using __one-line initialization__, the initialization starts scanning for beacons immediately.
 
 ```swift
-NearBee.sharedInstance(MY_DEVELOPER_TOKEN, organization:MY_ORGANIZATION, completion: : { (nearBee, error) in
-    if let nearBeeInstance = nearBee {
-        // Successful...
-    } else if let e = error {
-        print(e)
-    }
-}))
+var nearBee = NearBee.initNearBee()
 ```
 
 ```objective-c
-[NearBee sharedInstance:MY_DEVELOPER_TOKEN organization:MY_ORGANIZATION completion:^(NearBee * _Nullable nearBeeInstance, NSError * _Nullable error){
-    if (!error) {
-        //Successfull
-    } else {
-        NSLog("%@", error);
-    }
-}];
-```
-
-3. If you wish to get the ___sharedInstance()___ of the NearBee SDK, after you initialize the NearBee SDK at any point in a single application life cycle
-
-```swift
-do {
-    let nearBeeInstance = try NearBee.sharedInstance()
-} catch let error {
-    print(error)
-}
-```
-
-```objective-c
-NSError *error = nil;
-NearBee *nearBeeInstace = [NearBee sharedInstanceAndReturnError:&error];
+NearBee *nearBee = [NearBee initNearBee];
 ```
 
 4. If you wish to control start and stop of scanning for beacons:
 
 ```swift
-nearBeeInstance.startScanning() // Starts scanning for beacons...
-nearBeeInstance.stopScanning() // Stops scanning for beacons...
+nearBee.startScanning() // Starts scanning for beacons...
+nearBee.stopScanning() // Stops scanning for beacons...
 ```
 
 ```objective-c
-[nearBeeInstance startScanning];
-[nearBeeInstance stopScanning];
+[nearBee startScanning];
+[nearBee stopScanning];
 ```
 
-5. Implement `NSFetchedResultsControllerDelegate` protocol methods to show the beacons either in `UITableView` (recommended) or `UICollectionView`
+5. Implement `NearBeeDelegate` protocol methods to show the beacons either in `UITableView` or `UICollectionView`
 
 ```swift
-
-// In the class where you want to listen to the beacon scanning events...
-let nearBeeInstance = try! NearBee.sharedInstance()
-nearBeeInstance.beaconFetchedResultsController.delegate = self
-
-// Optional
-func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.endUpdates()
+func onBeaconsFound(_ beacons: [NearBeeBeacon]) {
+    // Display Beacons
 }
-
-func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-    tableView.beginUpdates()
+    
+func onBeaconsUpdated(_ beacons: [NearBeeBeacon]) {
+    // Display Beacons
 }
-
-func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-    switch (type) {
-    case .insert:
-        if let indexPath = newIndexPath {
-            tableView.insertRows(at: [indexPath], with: .fade)
-        }
-        break;
-    case .delete:
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        break;
-    case .update:
-        if let indexPath = indexPath {
-            tableView.reloadRows(at: [indexPath], with: .fade)
-        }
-        break;
-    case .move:
-        if let indexPath = indexPath {
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-        if let newIndexPath = newIndexPath {
-            tableView.insertRows(at: [newIndexPath], with: .fade)
-        }
-        break;
-    }   
+    
+func onBeaconsLost(_ beacons: [NearBeeBeacon]) {
+    // Display Beacons
+}
+    
+func onError(_ error: Error) {
+    // Show Error
 }
 ```
 
 ```objective-c
-
-// In the class where you want to listen to the beacon scanning events...
-NSError *error = nil;
-NearBee *nearBeeInstance = [NearBee sharedInstanceAndReturnError:&error];
-nearBeeInstance.beaconFetchedResultsController.delegate = self;
-
-//Optional
-
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView endUpdates];
+- (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+    // Display Beacons
 }
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self.tableView beginUpdates];
+- (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+    // Display Beacons
 }
 
-- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+- (void)onBeaconsFound:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+    // Display Beacons
+}
 
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeUpdate:
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-
-        case NSFetchedResultsChangeMove:
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+- (void)onError:(NSError * _Nonnull)error {
+    // Error
 }
 ```
 
@@ -212,7 +149,7 @@ nearBeeInstance.beaconFetchedResultsController.delegate = self;
 let nearBeeInstance = try! NearBee.sharedInstance()
 func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
 
-    let isNearBeeNotification = nearBeeInstance.checkAndProcessNearbyNotification(response.notification)
+    let isNearBeeNotification = nearBee.checkAndProcessNearbyNotification(response.notification)
     if (isNearBeeNotification) {
         completionHandler()
     } else {
@@ -232,7 +169,7 @@ NearBee *nearBeeInstance = [NearBee sharedInstanceAndReturnError:&error];
 didReceiveNotificationResponse:(UNNotificationResponse *)response 
 withCompletionHandler:(void (^)(void))completionHandler {
     
-    BOOL isNearBeeNotification = [nearBeeInstance checkAndProcessNearbyNotification: response.notification];
+    BOOL isNearBeeNotification = [nearBee checkAndProcessNearbyNotification: response.notification];
     if (isNearBeeNotification) {
         completionHandler()
     } else {
