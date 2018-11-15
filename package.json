@@ -1,0 +1,19 @@
+{
+    "name": "nearbee-ios",
+    "version": "1.0.0",
+    "description": "NearBee is an easy way to enable proximity marketing through an Eddystone-compliant BLE network.",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Beaconstac/NearBee-iOS-SDK"
+    },
+    "author": "Mobstac <hackers@mobstac.com>",
+    "license": "MIT",
+    "bugs": {
+      "url": "https://github.com/Beaconstac/NearBee-iOS-SDK/issues"
+    },
+    "homepage": "https://github.com/Beaconstac/NearBee-iOS-SDK#readme"
+  }
