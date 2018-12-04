@@ -71,8 +71,6 @@ If you are using the region monitoring API's from advanced location manager, mak
     <string>__MY_ORGANIZATION__</string>
 ```
 
-    Note: Without the key: and value: suffix
-
 2. Import the framework header in your class
 
 ```swift
