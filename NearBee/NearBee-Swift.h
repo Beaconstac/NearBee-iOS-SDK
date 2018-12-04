@@ -189,6 +189,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @protocol NearBeeDelegate;
 @class UNNotification;
 
+/// Nearby
+/// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
 @interface NearBee : NSObject
 @property (nonatomic, weak) id <NearBeeDelegate> _Nullable delegate;
@@ -229,8 +231,6 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 @end
 
 
-/// Nearby
-/// Class that handles all the tasks
 SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 @protocol NearBeeDelegate
 - (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
