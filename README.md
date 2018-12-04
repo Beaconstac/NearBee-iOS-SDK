@@ -63,11 +63,11 @@ If you are using the region monitoring API's from advanced location manager, mak
 
 1. In the app's `Info.plist` add the below mentioned keys and the values
 
-    key: co.nearbee.api_key
-    value: __MY_DEVELOPER_TOKEN__
+    <key>co.nearbee.api_key</key>
+    <string>__MY_DEVELOPER_TOKEN__</string>
 
-    key: co.nearbee.organization_id
-    value: __MY_ORGANIZATION__
+    <key>co.nearbee.organization_id</key>
+    <string>__MY_ORGANIZATION__</string>
 
     Note: Without the key: and value: suffix
 
