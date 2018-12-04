@@ -14,6 +14,7 @@ Pod::Spec.new do |s|
   s.source_files = 'NearBee/*.{h}'
   s.ios.vendored_library = 'NearBee/libNearBee.a'
   s.resource = 'NearBee/NearBeeResources.bundle'
+  s.xcconfig = { 'LIBRARY_SEARCH_PATHS' => "$(SRCROOT)/Pods/**" }
 
   s.dependency 'EddystoneScanner'
   s.dependency 'Socket.IO-Client-Swift'
