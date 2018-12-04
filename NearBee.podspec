@@ -21,5 +21,5 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'CoreData', 'SystemConfiguration', 'CoreBluetooth', 'CoreLocation', 'UserNotifications', 'SafariServices'
 
-  s.ios.deployment_target = "10.0"
+  s.ios.deployment_target = '10.0'
 end
