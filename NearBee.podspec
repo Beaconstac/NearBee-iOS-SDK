@@ -13,16 +13,13 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '10.0'
   
-  s.source_files = 'NearBee/*.{h}'
-  s.ios.vendored_library = 'NearBee/libNearBee.a'
+  s.source_files = 'NearBee/*.{h, swift}'
+  s.ios.vendored_library = 'NearBee/*.a'
   s.resource = 'NearBee/NearBeeResources.bundle'
   s.xcconfig = { 'LIBRARY_SEARCH_PATHS' => "$(SRCROOT)/Pods/**" }
 
   s.dependency 'EddystoneScanner'
   s.dependency 'Socket.IO-Client-Swift'
-
-  s.frameworks = 'CoreData', 'SystemConfiguration', 'CoreBluetooth', 'CoreLocation', 'UserNotifications', 'SafariServices'
-  s.weak_framework = 'UIKit'
 
   s.ios.deployment_target = '10.0'
 end
