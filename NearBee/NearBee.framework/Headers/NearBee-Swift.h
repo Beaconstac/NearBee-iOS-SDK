@@ -205,6 +205,7 @@ SWIFT_CLASS("_TtC7NearBee7NearBee")
 - (void)enableBackgroundNotification:(BOOL)enable;
 - (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification SWIFT_WARN_UNUSED_RESULT;
 - (void)displayContentOfEddystoneUrl:(NSString * _Nonnull)eddystoneUrl;
+- (void)displayUrl:(NSString * _Nonnull)urlString;
 @end
 
 @class NSEntityDescription;
