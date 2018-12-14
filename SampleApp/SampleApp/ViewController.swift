@@ -32,7 +32,6 @@ class ViewController: UITableViewController {
         nearBee = NearBee.initNearBee()
         nearBee.delegate = self
         nearBee.enableBackgroundNotification(true)
-        nearBee.enableNotificationSound(true)
     }
 }
 
