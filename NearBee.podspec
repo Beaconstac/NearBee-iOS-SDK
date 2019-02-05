@@ -23,5 +23,5 @@ Pod::Spec.new do |s|
   s.xcconfig = { 'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)' }
 
   s.dependency 'EddystoneScanner', '~> 1.2.1'
-  s.dependency 'Socket.IO-Client-Swift',
+  s.dependency 'Socket.IO-Client-Swift'
 end
