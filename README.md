@@ -37,6 +37,8 @@ Run `pod install` in the project directory
 
 1. In Info.plist, add a new fields, `NSLocationAlwaysUsageDescription`, `NSLocationAlwaysAndWhenInUsageDescription`, `NSBluetoothPeripheralUsageDescription` with relevant values that you want to show to the user. This is mandatory for iOS 10 and above.
 
+2. Enable `Uses Bluetooth LE accessories` in the Background Modes under Capabilities section.
+
 ## Pre-requisite
 
 __Location__
