@@ -4,14 +4,14 @@
 <dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>To scan for beacons around you</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>To monitor and display notifications for beacons in background</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>To detect beacons around you</string>
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>bluetooth-central</string>
-    </array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To monitor and display notifications for beacons in background</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To detect beacons around you</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
