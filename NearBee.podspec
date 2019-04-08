@@ -22,6 +22,6 @@ Pod::Spec.new do |s|
   s.resource = 'NearBee/NearBeeResources.bundle'
   s.xcconfig = { 'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)' }
 
-  s.dependency 'EddystoneScanner', '1.2.1'
+  s.dependency 'EddystoneScanner'
   s.dependency 'Socket.IO-Client-Swift'
 end
