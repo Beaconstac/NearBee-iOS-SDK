@@ -206,8 +206,8 @@ SWIFT_CLASS("_TtC7NearBee7NearBee")
 - (void)clearNotificationCache;
 /// Show notification in background
 - (void)enableBackgroundNotification:(BOOL)enable;
-- (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification SWIFT_WARN_UNUSED_RESULT;
-- (void)displayContentOfEddystoneUrl:(NSString * _Nonnull)eddystoneUrl;
+- (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters SWIFT_WARN_UNUSED_RESULT;
+- (void)displayContentOfEddystoneUrl:(NSString * _Nonnull)eddystoneUrl queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters;
 - (void)displayUrl:(NSString * _Nonnull)urlString;
 @end
 
