@@ -170,6 +170,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import EddystoneScanner;
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -189,31 +190,66 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 
 
+
+
+enum NearBeeState : NSInteger;
 @protocol NearBeeDelegate;
 @class UNNotification;
+@class NearBeeAttachment;
 
 /// Nearby
 /// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
 @interface NearBee : NSObject
+@property (nonatomic, readonly) enum NearBeeState state;
 @property (nonatomic, weak) id <NearBeeDelegate> _Nullable delegate;
 + (NearBee * _Nullable)initNearBee SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+- (NSString * _Nonnull)getLogFilePath SWIFT_WARN_UNUSED_RESULT;
 /// Start scanning for beacons
 - (void)startScanning;
 /// Stop all activities
 - (void)stopScanning;
 /// Do everything again ignoring local cache
 - (void)clearNotificationCache;
+- (void)resetProximityBeacons;
 /// Show notification in background
 - (void)enableBackgroundNotification:(BOOL)enable;
 - (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification SWIFT_WARN_UNUSED_RESULT;
 - (void)displayContentOfEddystoneUrl:(NSString * _Nonnull)eddystoneUrl;
+- (void)fetchAllSavedAttachments:(SWIFT_NOESCAPE void (^ _Nonnull)(NSArray<NearBeeAttachment *> * _Nullable))completion;
 @end
 
 @class NSEntityDescription;
 @class NSManagedObjectContext;
+
+SWIFT_CLASS_NAMED("NearBeeAttachment")
+@interface NearBeeAttachment : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+@interface NearBeeAttachment (SWIFT_EXTENSION(NearBee))
+- (void)toggleSave;
+- (void)display:(NSString * _Nonnull)url;
+@end
+
+@class NearBeeBusiness;
+@class NearBeePhysicalWeb;
+@class NSSet;
+
+@interface NearBeeAttachment (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly) BOOL isSaved;
+@property (nonatomic, readonly, strong) NearBeeBusiness * _Nullable business;
+@property (nonatomic, readonly, strong) NearBeePhysicalWeb * _Nullable physicalWeb;
+@property (nonatomic, readonly, strong) NSSet * _Nullable proximityAttachment;
+@end
+
 
 SWIFT_CLASS_NAMED("NearBeeBeacon")
 @interface NearBeeBeacon : NSManagedObject
@@ -223,24 +259,105 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 
 
 
+
+
 @interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
-@property (nonatomic, copy) NSString * _Nullable eddystoneUID;
-@property (nonatomic, copy) NSString * _Nullable eddystoneURL;
-@property (nonatomic, copy) NSString * _Nullable physicalWebDescription;
-@property (nonatomic, copy) NSString * _Nullable physicalWebEddystoneURL;
-@property (nonatomic, copy) NSString * _Nullable physicalWebIcon;
-@property (nonatomic, copy) NSString * _Nullable physicalWebTitle;
-@property (nonatomic, copy) NSDate * _Nullable physicalWebUpdated;
+@property (nonatomic, readonly, copy) NSString * _Nullable eddystoneUID;
+@property (nonatomic, readonly, copy) NSString * _Nullable eddystoneURL;
+@property (nonatomic, readonly) BOOL physicalWebActive SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebDescription SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebEddystoneURL SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebIcon SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebTitle SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSDate * _Nullable physicalWebUpdated SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, strong) NearBeeAttachment * _Nullable attachment;
+@property (nonatomic, readonly, strong) NearBeeBusiness * _Nullable business;
+@end
+
+
+SWIFT_CLASS_NAMED("NearBeeBusiness")
+@interface NearBeeBusiness : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+
+
+@interface NearBeeBusiness (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly, copy) NSString * _Nullable color;
+@property (nonatomic, readonly, copy) NSString * _Nullable coverURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable googlePlaceID;
+@property (nonatomic, readonly, copy) NSString * _Nullable iconURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, strong) NSSet * _Nullable beacons;
 @end
 
 
 SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 @protocol NearBeeDelegate
-- (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
-- (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
-- (void)onBeaconsFound:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
-- (void)onError:(NSError * _Nonnull)error;
+- (void)didUpdateBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)didLoseBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)didFindBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
+- (void)didUpdateState:(enum NearBeeState)state;
+- (void)didThrowError:(NSError * _Nonnull)error;
 @end
+
+
+SWIFT_CLASS_NAMED("NearBeePhysicalWeb")
+@interface NearBeePhysicalWeb : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+@interface NearBeePhysicalWeb (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly) BOOL active;
+@property (nonatomic, readonly, copy) NSString * _Nullable body;
+@property (nonatomic, readonly, copy) NSString * _Nullable finalURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable iconURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable title;
+@property (nonatomic, readonly, strong) NearBeeAttachment * _Nullable attachment;
+@end
+
+
+SWIFT_CLASS_NAMED("NearBeeProximityAttachment")
+@interface NearBeeProximityAttachment : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+
+
+
+
+
+
+@interface NearBeeProximityAttachment (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly, copy) NSString * _Nullable bannerImageURL;
+@property (nonatomic, readonly) int16_t bannerType;
+@property (nonatomic, readonly, copy) NSString * _Nullable body;
+@property (nonatomic, readonly, copy) NSString * _Nullable iconURL;
+@property (nonatomic, readonly, copy) NSString * _Nullable language;
+@property (nonatomic, readonly, copy) NSString * _Nullable name;
+@property (nonatomic, readonly, copy) NSString * _Nullable title;
+@property (nonatomic, readonly, copy) NSString * _Nullable url;
+@property (nonatomic, readonly, strong) NSSet * _Nullable attachment;
+@end
+
+typedef SWIFT_ENUM(NSInteger, NearBeeState, closed) {
+  NearBeeStateUnknown = 0,
+  NearBeeStateOff = 1,
+  NearBeeStateOn = 2,
+};
+
+
 
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
