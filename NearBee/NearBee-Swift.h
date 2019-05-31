@@ -260,13 +260,13 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 
 @interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
 @property (nonatomic, readonly, copy) NSString * _Nullable eddystoneUID;
-@property (nonatomic, readonly, copy) NSString * _Nullable eddystoneURL;
-@property (nonatomic, readonly) BOOL physicalWebActive SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
-@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebDescription SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
-@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebEddystoneURL SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
-@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebIcon SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
-@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebTitle SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
-@property (nonatomic, readonly, copy) NSDate * _Nullable physicalWebUpdated SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's NearBeePhysicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable eddystoneURL SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly) BOOL physicalWebActive SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebDescription SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebEddystoneURL SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebIcon SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly, copy) NSString * _Nullable physicalWebTitle SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
+@property (nonatomic, readonly, copy) NSDate * _Nullable physicalWebUpdated SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use NearBeeAttachment's proximityAttachment or physicalWeb");
 @property (nonatomic, readonly, strong) NearBeeAttachment * _Nullable attachment;
 @property (nonatomic, readonly, strong) NearBeeBusiness * _Nullable business;
 @end
