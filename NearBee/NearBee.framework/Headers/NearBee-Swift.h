@@ -269,6 +269,10 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 
 
 
+@interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
+- (id <BeaconAttachment> _Nullable)getAttachmentForCurrentDeviceLanguage SWIFT_WARN_UNUSED_RESULT;
+- (id <BeaconAttachment> _Nullable)getBestAvailableAttachment SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
 @interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
