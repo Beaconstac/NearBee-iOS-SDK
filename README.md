@@ -108,38 +108,46 @@ nearBee.stopScanning() // Stops scanning for beacons...
 5. Implement `NearBeeDelegate` protocol methods to show the beacons either in `UITableView` or `UICollectionView`
 
 ```swift
-func onBeaconsFound(_ beacons: [NearBeeBeacon]) {
+func didFindBeacons(_ beacons: [NearBeeBeacon]) {
     // Display Beacons
 }
     
-func onBeaconsUpdated(_ beacons: [NearBeeBeacon]) {
+func didLoseBeacons(_ beacons: [NearBeeBeacon]) {
     // Display Beacons
 }
     
-func onBeaconsLost(_ beacons: [NearBeeBeacon]) {
+func didUpdateBeacons(_ beacons: [NearBeeBeacon]) {
     // Display Beacons
 }
     
-func onError(_ error: Error) {
+func didThrowError(_ error: Error) {
     // Show Error
+}
+
+func didUpdateState(_ state: NearBeeState) {
+    // Update UI based on state
 }
 ```
 
 ```objective-c
-- (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+- (void)didFindBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
     // Display Beacons
 }
 
-- (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+- (void)didLoseBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
     // Display Beacons
 }
 
-- (void)onBeaconsFound:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
+- (void)didUpdateBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons {
     // Display Beacons
 }
 
-- (void)onError:(NSError * _Nonnull)error {
+- (void)didThrowError:(NSError * _Nonnull)error {
     // Error
+}
+
+- (void)didUpdateState(NearBeeState state) {
+    // Update UI based on state
 }
 ```
 
@@ -148,9 +156,8 @@ func onError(_ error: Error) {
 ```swift
 
 // In the class where you want to listen to notification events...
-let nearBeeInstance = try! NearBee.sharedInstance()
 func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
+    let nearBeeInstance = NearBee.initNearBee()
     let isNearBeeNotification = nearBee.checkAndProcessNearbyNotification(response.notification)
     if (isNearBeeNotification) {
         completionHandler()
@@ -158,24 +165,148 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
         // Not a near bee notification, you need to handle
     }
 }
-
 ```
 
 ```objective-c
 
 // In the class where you want to listen to notification events...
-NSError *error = nil;
-NearBee *nearBeeInstance = [NearBee sharedInstanceAndReturnError:&error];
-
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center 
 didReceiveNotificationResponse:(UNNotificationResponse *)response 
 withCompletionHandler:(void (^)(void))completionHandler {
-    
-    BOOL isNearBeeNotification = [nearBee checkAndProcessNearbyNotification: response.notification];
+    NearBee *nearBeeInstance = [NearBee initNearBee];
+    BOOL isNearBeeNotification = [nearBee checkAndProcessNearbyNotification:response.notification];
     if (isNearBeeNotification) {
         completionHandler()
     } else {
         // Not a near bee notification, you need to handle
     }
 }
+```
+
+### Getting attachment data from the Beacon object
+
+There are two types of attachments -
+
+#### PhysicalWeb
+These are extracted from the physical web url of the beacon
+```swift
+beacon.attachment.physicalWeb
+```
+PhysicalWeb properties
+
+```swift
+
+// Title
+physicalWeb.getTitle()
+
+// Description
+physicalWeb.getDescription()
+
+// Url for the icon
+physicalWeb.getIconURL()
+
+// Physical web url
+physicalWeb.getUrl()
+
+// Returns if the url is currexntly active
+physicalWeb.isActive()
+```
+
+```objective-c
+
+// Title
+[physicalWeb getTitle];
+
+// Description
+[physicalWeb getDescription];
+
+// Url for the icon
+[physicalWeb getIconURL];
+
+// Physical web url
+[physicalWeb getUrl];
+
+// Returns if the url is currexntly active
+[physicalWeb isActive];
+```
+
+#### ProximityAttachment
+
+This comes from Google Nearby attachment for a specific beacon
+
+```swift
+// returns a Set of ProximityAttachment objects
+beacon.attachment.proximityAttachment
+```
+`ProximityAttachment` properties
+
+In addition to all the properties from physical web, `ProximityAttachment` has extra properties
+```swift
+
+// Url for banner image
+proximityAttachment.bannerImageURL
+
+// Banner type, portrait = 1 or landscape = 2
+proximityAttachment.bannerType
+
+// ISO code for the language
+proximityAttachment.language
+```
+
+### Convenience methods for getting attachments
+
+Get the `ProximityAttachment` for the current device locale language.
+
+##### getAttachmentForCurrentLanguage()
+
+Will return `null` if `ProximityAttachment` is not available for that language
+
+```swift
+beacon.getAttachmentForCurrentDeviceLanguage()
+```
+
+```objective-c
+[beacon getAttachmentForCurrentDeviceLanguage];
+```
+
+##### getBestAvailableAttachment()
+
+Returns a `BeaconAttachment` protocol confirmed object, which will be a `ProximityAttachment` if an attachment is found for the current language, or a `PhysicalWeb` otherwise
+
+Will return `null` if no attachments are present for this beacon
+
+```swift
+beacon.getBestAvailableAttachment()
+```
+
+```objective-c
+[beacon getBestAvailableAttachment];
+```
+
+### Getting business data from the Beacon object
+
+Beacons may contain a Business object which is the `Place` associated with the beacon
+
+```swift
+let business = beacon.business
+```
+
+They have following properties
+
+```swift
+
+// Color code associated with the place (Hex code), convert this accordingly
+business.colorCode
+
+// Cover image url
+business.coverURL
+
+// Google place id
+business.googlePlaceID
+
+// Place name
+business.name
+
+// Icon image url
+business.iconURL
 ```

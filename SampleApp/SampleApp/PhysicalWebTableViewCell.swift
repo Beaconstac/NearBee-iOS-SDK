@@ -20,15 +20,17 @@ class PhysicalWebTableViewCell: UITableViewCell {
     @IBOutlet weak var eddystoneURL: UILabel!
     
     func configureCell(beacon: NearBeeBeacon) {
-        self.title.text = beacon.physicalWebTitle
-        self.descriptionLabel.text = beacon.physicalWebDescription
-        self.eddystoneURL.text = beacon.physicalWebEddystoneURL
-        
-        guard let physicalWebIcon = beacon.physicalWebIcon,
-            let iconURL = URL(string: physicalWebIcon) else {
-                self.iconImage.image = UIImage(named: "link")
-                return
+        guard let attachment = beacon.getBestAvailableAttachment() else {
+            return
         }
-        self.iconImage.setImage(url: iconURL, placeholder: UIImage(named: "link"))
+        self.title.text = attachment.getTitle()
+        self.descriptionLabel.text = attachment.getDescription()
+        self.eddystoneURL.text = attachment.getURL()
+        guard let icon = attachment.getIconURL(),
+            let iconUrl = URL(string: icon) else {
+            self.iconImage.image = UIImage(named: "link")
+            return
+        }
+        self.iconImage.setImage(url: iconUrl, placeholder: UIImage(named: "link"))
     }
 }

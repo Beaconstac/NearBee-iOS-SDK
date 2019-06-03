@@ -46,7 +46,7 @@ extension ViewController {
         
         let beacon = viewBeacons[indexPath.row]
         
-        guard let eddystoneURL = beacon.physicalWebEddystoneURL else {
+        guard let eddystoneURL = beacon.getBestAvailableAttachment()?.getURL() else {
             return
         }
         
@@ -76,26 +76,30 @@ extension ViewController {
 }
 
 extension ViewController: NearBeeDelegate {
-    func onBeaconsFound(_ beacons: [NearBeeBeacon]) {
+    func didFindBeacons(_ beacons: [NearBeeBeacon]) {
         let filteredBeacons = beacons.filter { !viewBeacons.contains($0) }
         viewBeacons.append(contentsOf: filteredBeacons)
         tableView.reloadData()
     }
     
-    func onBeaconsUpdated(_ beacons: [NearBeeBeacon]) {
+    func didLoseBeacons(_ beacons: [NearBeeBeacon]) {
         let filteredBeacons = beacons.filter { !viewBeacons.contains($0) }
         viewBeacons.append(contentsOf: filteredBeacons)
         tableView.reloadData()
     }
     
-    func onBeaconsLost(_ beacons: [NearBeeBeacon]) {
+    func didUpdateBeacons(_ beacons: [NearBeeBeacon]) {
         viewBeacons = viewBeacons.filter { !beacons.contains($0) }
         tableView.reloadData()
     }
     
-    func onError(_ error: Error) {
+    func didThrowError(_ error: Error) {
         viewBeacons = []
         tableView.reloadData()
+    }
+    
+    func didUpdateState(_ state: NearBeeState) {
+        
     }
 }
 
