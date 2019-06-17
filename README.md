@@ -291,10 +291,13 @@ Beacons may contain a Business object which is the `Place` associated with the b
 let business = beacon.business
 ```
 
+```objective-c
+NearBeeBusiness *business = beacon.business
+```
+
 They have following properties
 
 ```swift
-
 // Color code associated with the place (Hex code), convert this accordingly
 business.colorCode
 
