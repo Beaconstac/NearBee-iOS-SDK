@@ -50,7 +50,7 @@ extension ViewController {
             return
         }
         
-        nearBee.displayContentOf(eddystoneUrl: eddystoneURL)
+        nearBee.displayContentOf(eddystoneURL)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -72,6 +72,12 @@ extension ViewController {
         cell.configureCell(beacon: beacon)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? GeoFenceViewController {
+            destination.nearBee = nearBee
+        }
     }
 }
 
@@ -105,7 +111,7 @@ extension ViewController: NearBeeDelegate {
 
 extension ViewController: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let _ = nearBee.checkAndProcessNearbyNotification(response.notification)
+        let _ = nearBee.checkAndProcessNotification(response.notification)
         completionHandler()
     }
 }
