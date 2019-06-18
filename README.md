@@ -158,7 +158,7 @@ func didUpdateState(_ state: NearBeeState) {
 // In the class where you want to listen to notification events...
 func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
     let nearBeeInstance = NearBee.initNearBee()
-    let isNearBeeNotification = nearBee.checkAndProcessNearbyNotification(response.notification)
+    let isNearBeeNotification = nearBee.checkAndProcessNotification(response.notification)
     if (isNearBeeNotification) {
         completionHandler()
     } else {
@@ -174,7 +174,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive respo
 didReceiveNotificationResponse:(UNNotificationResponse *)response 
 withCompletionHandler:(void (^)(void))completionHandler {
     NearBee *nearBeeInstance = [NearBee initNearBee];
-    BOOL isNearBeeNotification = [nearBee checkAndProcessNearbyNotification:response.notification];
+    BOOL isNearBeeNotification = [nearBee checkAndProcessNotification:response.notification];
     if (isNearBeeNotification) {
         completionHandler()
     } else {
@@ -183,7 +183,47 @@ withCompletionHandler:(void (^)(void))completionHandler {
 }
 ```
 
-### Getting attachment data from the Beacon object
+## Geofencing
+
+### Start Monitoring
+
+```swift
+let nearbee = NearBee.initNearBee()
+
+nearbee.delegate = self
+
+nearbee.startGeofenceMonitoring { result in 
+}
+```
+
+```objective-c
+NearBee *nearbee = [NearBee initNearBee];
+
+nearbee.delegate = self;
+
+[nearbee startGeofenceMonitoring:^(BOOL result) {
+
+}];
+```
+
+### Stop Monitoring
+```swift
+let nearbee = NearBee.initNearBee()
+
+nearbee.delegate = self
+
+nearbee.stopGeoFenceMonitoring()
+```
+
+```objective-c
+NearBee *nearbee = [NearBee initNearBee];
+
+nearbee.delegate = self;
+
+[nearbee stopGeoFenceMonitoring];
+```
+
+## Getting attachment data from the Beacon object
 
 There are two types of attachments -
 
