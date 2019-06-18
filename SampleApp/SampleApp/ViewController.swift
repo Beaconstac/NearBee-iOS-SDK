@@ -34,6 +34,11 @@ class ViewController: UITableViewController {
         nearBee.enableBackgroundNotification(true)
         nearBee.startScanning()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        nearBee.delegate = self
+    }
 }
 
 extension ViewController {
