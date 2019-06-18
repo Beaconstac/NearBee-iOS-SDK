@@ -151,7 +151,26 @@ func didUpdateState(_ state: NearBeeState) {
 }
 ```
 
-6. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton
+6. Overriding notification sound name
+```swift
+if let alertSound = YOUR_URL {
+    let soundName = UNNotificationSoundName(rawValue: alertSound.lastPathComponent)
+    nearbee.notificationSound = soundName
+}
+```
+
+```objective-c
+NSURL *alertSound = YOUR_URL
+if (alertSound != nil) {
+    UNNotificationSoundName *soundName = [UNNotificationSoundName soundNamed:alertSound.lastPathComponent];
+    nearbee.notificationSound = soundName
+}
+nearbee.notificationSound = 
+```
+
+**Note:** Audio files must already be on the user’s device before they can be played. If you use a predefined set of sounds for your notifications, include the audio files in your app’s bundle. For all other sounds, place a copy of the audio file in the Library/Sounds folder of your app’s container directory. The UNNotificationSound object looks only in those two locations.
+
+7. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton
 
 ```swift
 
@@ -190,7 +209,7 @@ withCompletionHandler:(void (^)(void))completionHandler {
 ```swift
 let nearbee = NearBee.initNearBee()
 
-nearbee.delegate = self
+nearbee.delegate = self // If any error occurred in nearbee
 
 nearbee.startGeofenceMonitoring { result in 
 }
@@ -199,14 +218,14 @@ nearbee.startGeofenceMonitoring { result in
 ```objective-c
 NearBee *nearbee = [NearBee initNearBee];
 
-nearbee.delegate = self;
+nearbee.delegate = self; // If any error occurred in nearbee
 
 [nearbee startGeofenceMonitoring:^(BOOL result) {
 
 }];
 ```
-
 ### Stop Monitoring
+
 ```swift
 let nearbee = NearBee.initNearBee()
 
@@ -221,6 +240,20 @@ NearBee *nearbee = [NearBee initNearBee];
 nearbee.delegate = self;
 
 [nearbee stopGeoFenceMonitoring];
+```
+
+### Geofence Notification threshold
+
+```swift
+let nearbee = NearBee.initNearBee()
+
+nearbee.geoFenceNotificationThreshold = 3600.0 // default is 3600.0
+```
+
+```objective-c
+NearBee *nearbee = [NearBee initNearBee];
+
+nearbee.geoFenceNotificationThreshold = 3600.0 // default is 3600.0
 ```
 
 ## Getting attachment data from the Beacon object
