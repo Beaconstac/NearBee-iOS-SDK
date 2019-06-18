@@ -167,10 +167,12 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
 @import CoreData;
+@import CoreGraphics;
 @import EddystoneScanner;
 @import Foundation;
 @import ObjectiveC;
 @import UIKit;
+@import UserNotifications;
 #endif
 
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
@@ -189,9 +191,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 
+SWIFT_PROTOCOL("_TtP7NearBee10Attachment_")
+@protocol Attachment
+- (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getIconURL SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isActive SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getURL SWIFT_WARN_UNUSED_RESULT;
+@end
 
 
-SWIFT_PROTOCOL("_TtP7NearBee16BeaconAttachment_")
+
+
+SWIFT_PROTOCOL("_TtP7NearBee16BeaconAttachment_") SWIFT_AVAILABILITY(ios,deprecated=2.0.0,message="'BeaconAttachment' has been renamed to '_TtP7NearBee10Attachment_'")
 @protocol BeaconAttachment
 - (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
@@ -200,20 +212,27 @@ SWIFT_PROTOCOL("_TtP7NearBee16BeaconAttachment_")
 - (NSString * _Nullable)getURL SWIFT_WARN_UNUSED_RESULT;
 @end
 
-enum NearBeeState : NSInteger;
-@protocol NearBeeDelegate;
-@class UNNotification;
-@class NearBeeAttachment;
 
 /// Nearby
 /// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
 @interface NearBee : NSObject
-@property (nonatomic, readonly) enum NearBeeState state;
-@property (nonatomic, weak) id <NearBeeDelegate> _Nullable delegate;
-+ (NearBee * _Nullable)initNearBee SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+enum NearBeeState : NSInteger;
+@protocol NearBeeDelegate;
+@class UNNotification;
+@class NearBeeAttachment;
+
+@interface NearBee (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly) enum NearBeeState state;
+@property (nonatomic, weak) id <NearBeeDelegate> _Nullable delegate;
+@property (nonatomic) UNNotificationSoundName _Nonnull notificationSound;
+@property (nonatomic) NSTimeInterval geoFenceNotificationThreshold;
+@property (nonatomic) BOOL debugMode;
++ (NearBee * _Nullable)initNearBee SWIFT_METHOD_FAMILY(none) SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nonnull)getLogFilePath SWIFT_WARN_UNUSED_RESULT;
 /// Start scanning for beacons
 - (void)startScanning;
@@ -224,7 +243,10 @@ SWIFT_CLASS("_TtC7NearBee7NearBee")
 - (void)resetProximityBeacons;
 /// Show notification in background
 - (void)enableBackgroundNotification:(BOOL)enable;
-- (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters SWIFT_WARN_UNUSED_RESULT;
+- (void)startGeoFenceMonitoring:(void (^ _Nonnull)(BOOL))completion;
+- (void)stopGeoFenceMonitoring;
+- (BOOL)checkAndProcessNearbyNotification:(UNNotification * _Nonnull)notification queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters SWIFT_WARN_UNUSED_RESULT SWIFT_AVAILABILITY(ios,deprecated=2.1.0,message="'checkAndProcessNearbyNotification' has been renamed to 'checkAndProcessNotification:queryParameters:'");
+- (BOOL)checkAndProcessNotification:(UNNotification * _Nonnull)notification queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters SWIFT_WARN_UNUSED_RESULT;
 - (void)displayContentOf:(NSString * _Nonnull)eddystoneUrl queryParameters:(NSDictionary<NSString *, NSString *> * _Nonnull)queryParameters;
 - (void)displayUrl:(NSString * _Nonnull)urlString;
 - (void)fetchAllSavedAttachments:(SWIFT_NOESCAPE void (^ _Nonnull)(NSArray<NearBeeAttachment *> * _Nullable))completion;
@@ -271,8 +293,8 @@ SWIFT_CLASS_NAMED("NearBeeBeacon")
 
 
 @interface NearBeeBeacon (SWIFT_EXTENSION(NearBee))
-- (id <BeaconAttachment> _Nullable)getAttachmentForCurrentDeviceLanguage SWIFT_WARN_UNUSED_RESULT;
-- (id <BeaconAttachment> _Nullable)getBestAvailableAttachment SWIFT_WARN_UNUSED_RESULT;
+- (id <Attachment> _Nullable)getAttachmentForCurrentDeviceLanguage SWIFT_WARN_UNUSED_RESULT;
+- (id <Attachment> _Nullable)getBestAvailableAttachment SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -318,12 +340,28 @@ SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 - (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsUpdated' has been renamed to 'didLoseBeacons:'");
 - (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsLost' has been renamed to 'didUpdateBeacons:'");
 - (void)onError:(NSError * _Nonnull)error SWIFT_AVAILABILITY(ios,unavailable,message="'onError' has been renamed to 'didThrowError:'");
-@required
 - (void)didFindBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didLoseBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateState:(enum NearBeeState)state;
+@required
 - (void)didThrowError:(NSError * _Nonnull)error;
+@end
+
+
+SWIFT_CLASS_NAMED("NearBeeGeoFence")
+@interface NearBeeGeoFence : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface NearBeeGeoFence (SWIFT_EXTENSION(NearBee))
+@property (nonatomic, readonly) int64_t id;
+@property (nonatomic, readonly) double latitude;
+@property (nonatomic, readonly) double longitude;
+@property (nonatomic, readonly) int64_t radius;
+@property (nonatomic, readonly) int64_t organization;
+@property (nonatomic, readonly, copy) NSString * _Nullable url;
 @end
 
 
@@ -337,7 +375,7 @@ SWIFT_CLASS_NAMED("NearBeePhysicalWeb")
 
 
 
-@interface NearBeePhysicalWeb (SWIFT_EXTENSION(NearBee)) <BeaconAttachment>
+@interface NearBeePhysicalWeb (SWIFT_EXTENSION(NearBee)) <Attachment>
 - (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getIconURL SWIFT_WARN_UNUSED_RESULT;
@@ -360,7 +398,7 @@ SWIFT_CLASS_NAMED("NearBeeProximityAttachment")
 
 
 
-@interface NearBeeProximityAttachment (SWIFT_EXTENSION(NearBee)) <BeaconAttachment>
+@interface NearBeeProximityAttachment (SWIFT_EXTENSION(NearBee)) <Attachment>
 - (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
 - (NSString * _Nullable)getIconURL SWIFT_WARN_UNUSED_RESULT;
@@ -380,6 +418,11 @@ typedef SWIFT_ENUM(NSInteger, NearBeeState, closed) {
   NearBeeStateOff = 1,
   NearBeeStateOn = 2,
 };
+
+
+@interface UIColor (SWIFT_EXTENSION(NearBee))
+- (nonnull instancetype)initWithHexString:(NSString * _Nonnull)hexString alpha:(CGFloat)alpha;
+@end
 
 
 
