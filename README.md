@@ -175,7 +175,6 @@ if (alertSound != nil) {
     UNNotificationSoundName *soundName = [UNNotificationSoundName soundNamed:alertSound.lastPathComponent];
     nearbee.notificationSound = soundName
 }
-nearbee.notificationSound = 
 ```
 
 **Note:** Audio files must already be on the user’s device before they can be played. If you use a predefined set of sounds for your notifications, include the audio files in your app’s bundle. For all other sounds, place a copy of the audio file in the Library/Sounds folder of your app’s container directory. The UNNotificationSound object looks only in those two locations.
