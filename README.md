@@ -151,7 +151,17 @@ func didUpdateState(_ state: NearBeeState) {
 }
 ```
 
-6. Overriding notification sound name
+6. Enable Background Notification
+
+```swift
+nearbee.enableBackgroundNotification(true)
+```
+
+```objective-c
+[nearbee enableBackgroundNotification: true];
+```
+
+7. Overriding notification sound name
 ```swift
 if let alertSound = YOUR_URL {
     let soundName = UNNotificationSoundName(rawValue: alertSound.lastPathComponent)
@@ -170,7 +180,7 @@ nearbee.notificationSound =
 
 **Note:** Audio files must already be on the user’s device before they can be played. If you use a predefined set of sounds for your notifications, include the audio files in your app’s bundle. For all other sounds, place a copy of the audio file in the Library/Sounds folder of your app’s container directory. The UNNotificationSound object looks only in those two locations.
 
-7. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton
+8. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton
 
 ```swift
 
