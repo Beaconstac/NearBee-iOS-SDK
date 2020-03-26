@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'NearBee'
   s.swift_version = '5.0'
-  s.version      = '2.1.0'
+  s.version      = '3.0.0'
   s.summary      = 'iOS library for Eddystone beacons'
 
   s.homepage     = 'https://github.com/Beaconstac/NearBee-iOS-SDK'
