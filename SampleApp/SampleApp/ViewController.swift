@@ -116,7 +116,7 @@ extension ViewController: NearBeeDelegate {
 
 extension ViewController: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let _ = nearBee.checkAndProcessNotification(response.notification)
+        let _ = nearBee.checkAndProcessNearbyNotification(response.notification)
         completionHandler()
     }
 }
