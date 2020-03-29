@@ -38,16 +38,9 @@ class GeoFenceViewController: UIViewController {
     @IBAction func toggleState(_ sender: UIButton) {
         state = !state
         if state {
-            nearBee.startGeoFenceMonitoring { [weak self] result in
-                guard let weakSelf = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    weakSelf.showAutoAlert("Started Geofence", message: nil)
-                }
-            }
+            nearBee.startMonitoringGeoFenceRegions()
         } else {
-            nearBee.stopGeoFenceMonitoring()
+            nearBee.stopMonitoringGeoFenceRegions()
         }
         updateState()
     }
@@ -73,6 +66,22 @@ class GeoFenceViewController: UIViewController {
 }
 
 extension GeoFenceViewController: NearBeeDelegate {
+    func didFindBeacons(_ beacons: [NearBeeBeacon]) {
+        
+    }
+    
+    func didUpdateBeacons(_ beacons: [NearBeeBeacon]) {
+        
+    }
+    
+    func didLoseBeacons(_ beacons: [NearBeeBeacon]) {
+        
+    }
+    
+    func didUpdateState(_ state: NearBeeState) {
+        
+    }
+    
     func didThrowError(_ error: Error) {
         showAutoAlert("Error", message: error.localizedDescription)
     }
