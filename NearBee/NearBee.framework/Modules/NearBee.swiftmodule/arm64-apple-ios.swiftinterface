@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+// swift-compiler-version: Apple Swift version 5.2 (swiftlang-1103.0.32.1 clang-1103.0.32.29)
 // swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name NearBee
 import CoreBluetooth
 import CoreData
@@ -73,7 +73,7 @@ public let NEARBEE_SDK_ERROR_DOMAIN: Swift.String
   @objc func isActive() -> Swift.Bool
   @objc func getURL() -> Swift.String?
 }
-@objc public class NearBee : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class NearBee : ObjectiveC.NSObject {
   @objc deinit
 }
 extension NearBee {
@@ -128,9 +128,9 @@ extension NearBeeProximityAttachment : NearBee.Attachment {
   @objc dynamic public func isActive() -> Swift.Bool
   @objc dynamic public func getURL() -> Swift.String?
 }
-@objc(NearBeePhysicalWeb) public class NearBeePhysicalWeb : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeePhysicalWeb) public class NearBeePhysicalWeb : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension String {
   public func convertToDictionary() -> [Swift.String : Any]?
@@ -141,9 +141,9 @@ extension String {
 extension UIDevice {
   public static let modelName: Swift.String
 }
-@objc(NearBeeGeoFence) public class NearBeeGeoFence : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeeGeoFence) public class NearBeeGeoFence : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension NearBeeGeoFence {
   @objc @NSManaged dynamic public var id: Swift.Int64 {
@@ -165,17 +165,17 @@ extension NearBeeGeoFence {
     @objc get
   }
 }
-@objc(NearBeeBusiness) public class NearBeeBusiness : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeeBusiness) public class NearBeeBusiness : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension NearBeeAttachment {
   @objc dynamic public func toggleSave()
   @objc dynamic public func display(_ url: Swift.String)
 }
-@objc(NearBeeBeacon) public class NearBeeBeacon : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeeBeacon) public class NearBeeBeacon : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension NearBeeBeacon {
   @objc @NSManaged dynamic public var eddystoneUID: Swift.String? {
@@ -220,9 +220,9 @@ extension NearBeeBeacon {
   @objc dynamic public func getAttachmentForCurrentDeviceLanguage() -> NearBee.Attachment?
   @objc dynamic public func getBestAvailableAttachment() -> NearBee.Attachment?
 }
-@objc(NearBeeProximityAttachment) public class NearBeeProximityAttachment : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeeProximityAttachment) public class NearBeeProximityAttachment : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension NearBeeBusiness {
   @objc @NSManaged dynamic public var color: Swift.String? {
@@ -241,9 +241,9 @@ extension NearBeeBusiness {
     @objc get
   }
 }
-@objc(NearBeeAttachment) public class NearBeeAttachment : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+@_inheritsConvenienceInitializers @objc(NearBeeAttachment) public class NearBeeAttachment : CoreData.NSManagedObject {
   @objc deinit
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
 extension NearBee.NearBeeState : Swift.Equatable {}
 extension NearBee.NearBeeState : Swift.Hashable {}
