@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'NearBee'
   s.swift_version = '5.0'
-  s.version      = '0.2.2'
+  s.version      = '0.2.4-beta1'
   s.summary      = 'iOS library for Eddystone beacons'
 
   s.homepage     = 'https://github.com/Beaconstac/NearBee-iOS-SDK'
@@ -22,6 +22,6 @@ Pod::Spec.new do |s|
   s.resource = 'NearBee/NearBeeResources.bundle'
   s.xcconfig = { 'LIBRARY_SEARCH_PATHS' => '$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)' }
 
-  s.dependency 'EddystoneScanner', '~> 1.1.10'
-  s.dependency 'Socket.IO-Client-Swift', '~> 14.0.0'
+  s.dependency 'EddystoneScanner'
+  s.dependency 'Socket.IO-Client-Swift'
 end
