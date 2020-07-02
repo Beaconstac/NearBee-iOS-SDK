@@ -38,7 +38,7 @@ class GeoFenceViewController: UIViewController {
     @IBAction func toggleState(_ sender: UIButton) {
         state = !state
         if state {
-            nearBee.startMonitoringGeoFenceRegions()
+                nearBee.startMonitoringGeoFenceRegions()
         } else {
             nearBee.stopMonitoringGeoFenceRegions()
         }

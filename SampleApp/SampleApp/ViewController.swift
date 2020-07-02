@@ -17,6 +17,7 @@ class ViewController: UITableViewController {
     
     var MY_TOKEN = "" // warning: Make sure to replace this
     var MY_ORGANIZATION = 0 // warning: Make sure to replace this
+
     var locationManager = CLLocationManager()
     
     var nearBee: NearBee!
