@@ -89,21 +89,32 @@ extension ViewController {
 
 extension ViewController: NearBeeDelegate {
     func didFindBeacons(_ beacons: [NearBeeBeacon]) {
-        let filteredBeacons = beacons.filter { !viewBeacons.contains($0) }
-        viewBeacons.append(contentsOf: filteredBeacons)
-        tableView.reloadData()
-    }
-    
-    func didLoseBeacons(_ beacons: [NearBeeBeacon]) {
-        let filteredBeacons = beacons.filter { !viewBeacons.contains($0) }
-        viewBeacons.append(contentsOf: filteredBeacons)
-        tableView.reloadData()
-    }
-    
-    func didUpdateBeacons(_ beacons: [NearBeeBeacon]) {
-        viewBeacons = viewBeacons.filter { !beacons.contains($0) }
-        tableView.reloadData()
-    }
+            for beacon in beacons {
+                if !viewBeacons.contains(beacon) {
+                    viewBeacons.insert(beacon, at: viewBeacons.count)
+                }
+            }
+            tableView.reloadData()
+        }
+        
+        func didLoseBeacons(_ beacons: [NearBeeBeacon]) {
+            for beacon in beacons {
+                if viewBeacons.contains(beacon) {
+                    viewBeacons.remove(at: viewBeacons.index(of: beacon)!)
+                }
+            }
+            tableView.reloadData()
+        }
+        
+        func didUpdateBeacons(_ beacons: [NearBeeBeacon]) {
+            for beacon in beacons {
+                if viewBeacons.contains(beacon) {
+                    viewBeacons.remove(at: viewBeacons.index(of: beacon)!)
+                    viewBeacons.insert(beacon, at: viewBeacons.count)
+                }
+            }
+            tableView.reloadData()
+        }
     
     func didThrowError(_ error: Error) {
         viewBeacons = []
