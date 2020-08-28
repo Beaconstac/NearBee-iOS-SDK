@@ -265,6 +265,32 @@ NearBee *nearbee = [NearBee initNearBee];
 nearbee.geoFenceNotificationThreshold = 3600.0 // default is 3600.0
 ```
 
+### NearBeeDelegate protocol method for geofences
+
+Implement the NearBeeDelegate protocol method to show the geofences either in UITableView or UICollectionView
+
+```swift
+func didEnterGeofence(_ geofence: NearBeeGeoFence, _ attachment: GeoFenceAttachment) {
+    // Display data related to geofence
+}
+```
+
+### Methods to get properties of Geofence attachment
+
+```swift
+// Notification title
+attachment.getTitle()
+
+// Notification body
+attachment.getDescription()
+
+// URL of icon set for the Geofence notification
+attachment.getIconURL()
+
+// Final URL to which a click on the notification should redirect
+attachment.getURL()
+```
+
 ## Getting attachment data from the Beacon object
 
 There are two types of attachments -
