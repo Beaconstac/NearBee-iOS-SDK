@@ -275,6 +275,13 @@ func didEnterGeofence(_ geofence: NearBeeGeoFence, _ attachment: GeoFenceAttachm
 }
 ```
 
+```objective-c
+- (void)didEnterGeofence:(NearBeeGeofence * _Nonnull)geofence _ (GeoFenceAttachment * _Nonnull)attachment {
+    // Display data releted to geofence
+}
+```
+
+
 ### Methods to get properties of Geofence attachment
 
 ```swift
@@ -289,6 +296,27 @@ attachment.getIconURL()
 
 // Final URL to which a click on the notification should redirect
 attachment.getURL()
+
+// Returns true if the url is currently active
+attachment.isActive()
+```
+
+```objective-c
+
+// Notification title
+[attachment getTitle];
+
+// Notification body
+[attachment getDescription];
+
+// URL of icon set for the Geofence notification
+[attachment getIconURL];
+
+// Final URL to which a click on the notification should redirect
+[attachment getURL];
+
+// Returns true if the url is currently active
+[attachment isActive];
 ```
 
 ## Getting attachment data from the Beacon object
@@ -316,7 +344,7 @@ physicalWeb.getIconURL()
 // Physical web url
 physicalWeb.getUrl()
 
-// Returns if the url is currexntly active
+// Returns true if the url is currently active
 physicalWeb.isActive()
 ```
 
@@ -334,7 +362,7 @@ physicalWeb.isActive()
 // Physical web url
 [physicalWeb getUrl];
 
-// Returns if the url is currexntly active
+// Returns true if the url is currently active
 [physicalWeb isActive];
 ```
 
