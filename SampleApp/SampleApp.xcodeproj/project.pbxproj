@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -55,6 +55,8 @@
 		54E0DCEC22B8DC13000362FE /* GeoFenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFenceViewController.swift; sourceTree = "<group>"; };
 		7E2C2643E0B1A84C4DEFE9DE /* Pods-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SampleApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SampleApp/Pods-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
 		A6B27AA9B8212CE6F07AA6E5 /* Pods_SampleApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SampleApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BE04172424F9153A002E4ABB /* TestLocation1.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestLocation1.gpx; sourceTree = "<group>"; };
+		BE04172524F9154B002E4ABB /* TestLocation2.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TestLocation2.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,8 @@
 				545935CE218C8657003FB358 /* LaunchScreen.storyboard */,
 				545935D1218C8657003FB358 /* Info.plist */,
 				54E0DCEC22B8DC13000362FE /* GeoFenceViewController.swift */,
+				BE04172424F9153A002E4ABB /* TestLocation1.gpx */,
+				BE04172524F9154B002E4ABB /* TestLocation2.gpx */,
 			);
 			path = SampleApp;
 			sourceTree = "<group>";

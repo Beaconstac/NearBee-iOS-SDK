@@ -88,6 +88,11 @@ extension ViewController {
 }
 
 extension ViewController: NearBeeDelegate {
+    // Callback for geofence enter event
+    func didEnterGeofence(_ geofence: NearBeeGeoFence, _ attachment: GeoFenceAttachment) {
+        
+    }
+    
     func didFindBeacons(_ beacons: [NearBeeBeacon]) {
             for beacon in beacons {
                 if !viewBeacons.contains(beacon) {
