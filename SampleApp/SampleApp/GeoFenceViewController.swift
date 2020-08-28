@@ -66,6 +66,11 @@ class GeoFenceViewController: UIViewController {
 }
 
 extension GeoFenceViewController: NearBeeDelegate {
+    // Callback for geofence enter event
+    func didEnterGeofence(_ geofence: NearBeeGeoFence, _ attachment: GeoFenceAttachment) {
+        
+    }
+    
     func didFindBeacons(_ beacons: [NearBeeBeacon]) {
         
     }
