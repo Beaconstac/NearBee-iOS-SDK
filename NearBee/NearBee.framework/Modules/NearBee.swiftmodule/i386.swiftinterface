@@ -25,6 +25,15 @@ extension NearBeeAttachment {
     @objc get
   }
 }
+@_hasMissingDesignatedInitializers @objc(GeoFenceAttachment) public class GeoFenceAttachment : ObjectiveC.NSObject, NearBee.Attachment {
+  @objc public func getTitle() -> Swift.String?
+  @objc public func getDescription() -> Swift.String?
+  @objc public func getIconURL() -> Swift.String?
+  @objc public func isActive() -> Swift.Bool
+  @objc public func getURL() -> Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
 extension NearBeePhysicalWeb : NearBee.Attachment {
   @objc dynamic public func getTitle() -> Swift.String?
   @objc dynamic public func getDescription() -> Swift.String?
@@ -52,11 +61,14 @@ public let NEARBEE_SDK_ERROR_DOMAIN: Swift.String
   @objc optional func onBeaconsLost(_ beacons: [NearBee.NearBeeBeacon])
   @available(iOS, unavailable, renamed: "didThrowError")
   @objc optional func onError(_ error: Swift.Error)
+  @available(iOS, unavailable, renamed: "didEnterGeofence")
+  @objc optional func onEnteredGeofence(_ geofence: NearBee.NearBeeGeoFence, _ attachment: NearBee.GeoFenceAttachment)
   @objc func didFindBeacons(_ beacons: [NearBee.NearBeeBeacon])
   @objc func didUpdateBeacons(_ beacons: [NearBee.NearBeeBeacon])
   @objc func didLoseBeacons(_ beacons: [NearBee.NearBeeBeacon])
   @objc func didUpdateState(_ state: NearBee.NearBeeState)
   @objc func didThrowError(_ error: Swift.Error)
+  @objc func didEnterGeofence(_ geofence: NearBee.NearBeeGeoFence, _ attachment: NearBee.GeoFenceAttachment)
 }
 @available(iOS, deprecated: 2.0.0, renamed: "Attachment")
 @objc public protocol BeaconAttachment {

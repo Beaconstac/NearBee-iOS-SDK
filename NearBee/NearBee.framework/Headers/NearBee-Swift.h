@@ -235,6 +235,18 @@ SWIFT_PROTOCOL("_TtP7NearBee16BeaconAttachment_") SWIFT_AVAILABILITY(ios,depreca
 @end
 
 
+SWIFT_CLASS_NAMED("GeoFenceAttachment")
+@interface GeoFenceAttachment : NSObject <Attachment>
+- (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getIconURL SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isActive SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getURL SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// Nearby
 /// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
@@ -353,6 +365,7 @@ SWIFT_CLASS_NAMED("NearBeeBusiness")
 @property (nonatomic, readonly, copy) NSString * _Nullable name;
 @end
 
+@class NearBeeGeoFence;
 
 SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 @protocol NearBeeDelegate
@@ -361,12 +374,14 @@ SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 - (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsUpdated' has been renamed to 'didLoseBeacons:'");
 - (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsLost' has been renamed to 'didUpdateBeacons:'");
 - (void)onError:(NSError * _Nonnull)error SWIFT_AVAILABILITY(ios,unavailable,message="'onError' has been renamed to 'didThrowError:'");
+- (void)onEnteredGeofence:(NearBeeGeoFence * _Nonnull)geofence :(GeoFenceAttachment * _Nonnull)attachment SWIFT_AVAILABILITY(ios,unavailable,message="'onEnteredGeofence' has been renamed to 'didEnterGeofence::'");
 @required
 - (void)didFindBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didLoseBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateState:(enum NearBeeState)state;
 - (void)didThrowError:(NSError * _Nonnull)error;
+- (void)didEnterGeofence:(NearBeeGeoFence * _Nonnull)geofence :(GeoFenceAttachment * _Nonnull)attachment;
 @end
 
 
@@ -690,6 +705,18 @@ SWIFT_PROTOCOL("_TtP7NearBee16BeaconAttachment_") SWIFT_AVAILABILITY(ios,depreca
 @end
 
 
+SWIFT_CLASS_NAMED("GeoFenceAttachment")
+@interface GeoFenceAttachment : NSObject <Attachment>
+- (NSString * _Nullable)getTitle SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getDescription SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getIconURL SWIFT_WARN_UNUSED_RESULT;
+- (BOOL)isActive SWIFT_WARN_UNUSED_RESULT;
+- (NSString * _Nullable)getURL SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+
 /// Nearby
 /// Class that handles all the tasks
 SWIFT_CLASS("_TtC7NearBee7NearBee")
@@ -808,6 +835,7 @@ SWIFT_CLASS_NAMED("NearBeeBusiness")
 @property (nonatomic, readonly, copy) NSString * _Nullable name;
 @end
 
+@class NearBeeGeoFence;
 
 SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 @protocol NearBeeDelegate
@@ -816,12 +844,14 @@ SWIFT_PROTOCOL("_TtP7NearBee15NearBeeDelegate_")
 - (void)onBeaconsUpdated:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsUpdated' has been renamed to 'didLoseBeacons:'");
 - (void)onBeaconsLost:(NSArray<NearBeeBeacon *> * _Nonnull)beacons SWIFT_AVAILABILITY(ios,unavailable,message="'onBeaconsLost' has been renamed to 'didUpdateBeacons:'");
 - (void)onError:(NSError * _Nonnull)error SWIFT_AVAILABILITY(ios,unavailable,message="'onError' has been renamed to 'didThrowError:'");
+- (void)onEnteredGeofence:(NearBeeGeoFence * _Nonnull)geofence :(GeoFenceAttachment * _Nonnull)attachment SWIFT_AVAILABILITY(ios,unavailable,message="'onEnteredGeofence' has been renamed to 'didEnterGeofence::'");
 @required
 - (void)didFindBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didLoseBeacons:(NSArray<NearBeeBeacon *> * _Nonnull)beacons;
 - (void)didUpdateState:(enum NearBeeState)state;
 - (void)didThrowError:(NSError * _Nonnull)error;
+- (void)didEnterGeofence:(NearBeeGeoFence * _Nonnull)geofence :(GeoFenceAttachment * _Nonnull)attachment;
 @end
 
 
