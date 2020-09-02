@@ -319,6 +319,24 @@ attachment.isActive()
 [attachment isActive];
 ```
 
+
+## Convenience method to get the RSSI value of a beacon
+
+The Received Signal Strength Indication value can be used to determine the distance from a beacon.
+```swift
+
+// Returns the value of RSSI for the beacon found
+beacon.getRSSI()
+
+```
+
+```objective-c
+
+// returns the value of RSSI for the beacon found
+[beacon getRSSI];
+
+```
+
 ## Getting attachment data from the Beacon object
 
 There are two types of attachments -
