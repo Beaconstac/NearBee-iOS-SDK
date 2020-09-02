@@ -231,6 +231,7 @@ extension NearBeeBeacon {
 extension NearBeeBeacon {
   @objc dynamic public func getAttachmentForCurrentDeviceLanguage() -> NearBee.Attachment?
   @objc dynamic public func getBestAvailableAttachment() -> NearBee.Attachment?
+  @objc dynamic public func getRSSI() -> Swift.Float
 }
 @_inheritsConvenienceInitializers @objc(NearBeeProximityAttachment) public class NearBeeProximityAttachment : CoreData.NSManagedObject {
   @objc deinit
