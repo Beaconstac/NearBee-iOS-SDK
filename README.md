@@ -179,7 +179,7 @@ if (alertSound != nil) {
 
 **Note:** Audio files must already be on the user’s device before they can be played. If you use a predefined set of sounds for your notifications, include the audio files in your app’s bundle. For all other sounds, place a copy of the audio file in the Library/Sounds folder of your app’s container directory. The UNNotificationSound object looks only in those two locations.
 
-8. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton
+8. Once user clicks on the notification, pass it to the NearBee SDK to display the notificaiton. The notification behaviour can be overridden here, by handling it in the app instead of passing it to the SDK.
 
 ```swift
 
@@ -317,6 +317,24 @@ attachment.isActive()
 
 // Returns true if the url is currently active
 [attachment isActive];
+```
+
+
+## Convenience method to get the RSSI value of a beacon
+
+The Received Signal Strength Indication value can be used to determine the distance from a beacon.
+```swift
+
+// Returns the value of RSSI for the beacon found
+beacon.getRSSI()
+
+```
+
+```objective-c
+
+// returns the value of RSSI for the beacon found
+[beacon getRSSI];
+
 ```
 
 ## Getting attachment data from the Beacon object
