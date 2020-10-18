@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
-// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name NearBee
+// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name NearBee
 import CoreBluetooth
 import CoreData
 import CoreLocation
@@ -31,8 +31,8 @@ extension NearBeeAttachment {
   @objc public func getIconURL() -> Swift.String?
   @objc public func isActive() -> Swift.Bool
   @objc public func getURL() -> Swift.String?
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 extension NearBeePhysicalWeb : NearBee.Attachment {
   @objc dynamic public func getTitle() -> Swift.String?
@@ -41,7 +41,7 @@ extension NearBeePhysicalWeb : NearBee.Attachment {
   @objc dynamic public func isActive() -> Swift.Bool
   @objc dynamic public func getURL() -> Swift.String?
 }
-public var NEARBEE_SDK_ERROR_DOMAIN: Swift.String
+public let NEARBEE_SDK_ERROR_DOMAIN: Swift.String
 @objc public enum NearBeeState : Swift.Int {
   case unknown
   case off
@@ -94,19 +94,19 @@ extension NearBee {
   }
   @objc weak dynamic public var delegate: NearBee.NearBeeDelegate? {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc dynamic public var notificationSound: UserNotifications.UNNotificationSoundName {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc dynamic public var geoFenceNotificationThreshold: Foundation.TimeInterval {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc dynamic public var debugMode: Swift.Bool {
     @objc get
-    @objc set(newValue)
+    @objc set
   }
   @objc public static func initNearBee() -> NearBee.NearBee?
   @objc dynamic public func getLogFilePath() -> Swift.String
@@ -148,10 +148,10 @@ extension String {
   public func convertToDictionary() -> [Swift.String : Any]?
 }
 @objc extension UIColor {
-  @objc dynamic public convenience init(hexString: Swift.String, alpha: CoreGraphics.CGFloat = 1.0)
+  @objc convenience dynamic public init(hexString: Swift.String, alpha: CoreGraphics.CGFloat = 1.0)
 }
 extension UIDevice {
-  public static var modelName: Swift.String
+  public static let modelName: Swift.String
 }
 @_inheritsConvenienceInitializers @objc(NearBeeGeoFence) public class NearBeeGeoFence : CoreData.NSManagedObject {
   @objc deinit
@@ -258,3 +258,6 @@ extension NearBeeBusiness {
   @objc deinit
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
 }
+extension NearBee.NearBeeState : Swift.Equatable {}
+extension NearBee.NearBeeState : Swift.Hashable {}
+extension NearBee.NearBeeState : Swift.RawRepresentable {}
