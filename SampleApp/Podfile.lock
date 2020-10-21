@@ -1,8 +1,8 @@
 PODS:
-  - Cache (5.2.0)
-  - EddystoneScanner (1.2.12)
-  - Imaginary (4.2.0):
-    - Cache (~> 5.0)
+  - Cache (5.3.0)
+  - EddystoneScanner (1.2.13)
+  - Imaginary (4.3.1):
+    - Cache (~> 5.3.0)
   - Socket.IO-Client-Swift (15.2.0):
     - Starscream (~> 3.1)
   - Starscream (3.1.1)
@@ -21,9 +21,9 @@ SPEC REPOS:
     - Starscream
 
 SPEC CHECKSUMS:
-  Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  EddystoneScanner: 804787b41d6e4d6de72248124b35cc2c155c207b
-  Imaginary: dae33d06dbc2ada22f98afef5eb45cc061311a2c
+  Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
+  EddystoneScanner: bc26bd709596e46bd304d536d0b26f2850269d16
+  Imaginary: 18c5bba364229eef383b925199db442e71d175e1
   Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
