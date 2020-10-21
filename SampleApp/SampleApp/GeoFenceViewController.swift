@@ -31,7 +31,7 @@ class GeoFenceViewController: UIViewController {
         
         nearBee.stopMonitoringGeoFenceRegions()
         nearBee.startMonitoringGeoFenceRegions()
-        showAutoAlert("Message", message: "Started monitoring for geofence regions")
+//        showAutoAlert("Message", message: "Started monitoring for geofence regions")
     }
     
     func updateState() {
