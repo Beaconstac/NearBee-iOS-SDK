@@ -35,7 +35,7 @@ Run `pod install` in the project directory
 
 ## Configure your project
 
-1. In Info.plist, add a new fields, `NSLocationAlwaysUsageDescription`, `NSLocationAlwaysAndWhenInUsageDescription`, `NSBluetoothPeripheralUsageDescription` with relevant values that you want to show to the user. This is mandatory for iOS 10 and above.
+1. In Info.plist, add a new fields, `NSLocationAlwaysUsageDescription`, `NSLocationAlwaysAndWhenInUseUsageDescription`, `NSLocationWhenInUseUsageDescription`, `NSBluetoothPeripheralUsageDescription`, `NSBluetoothAlwaysUsageDescription` with relevant values that you want to show to the user. This is mandatory for iOS 10 and above.
 
 2. Enable `Uses Bluetooth LE accessories` in the Background Modes under Capabilities section.
 
@@ -162,6 +162,10 @@ nearbee.enableBackgroundNotification(true)
 ```
 
 7. Overriding notification sound name
+
+Please enable the notification sound by setting UserDefaults.standard.setValue(true, forKey: "NearBeeToggleSound")
+
+
 ```swift
 if let alertSound = YOUR_URL {
     let soundName = UNNotificationSoundName(rawValue: alertSound.lastPathComponent)
@@ -220,7 +224,7 @@ let nearbee = NearBee.initNearBee()
 
 nearbee.delegate = self // If any error occurred in nearbee
 
-nearbee.startGeofenceMonitoring { result in 
+nearbee.startMonitoringGeoFenceRegions { result in 
 }
 ```
 
@@ -229,7 +233,7 @@ NearBee *nearbee = [NearBee initNearBee];
 
 nearbee.delegate = self; // If any error occurred in nearbee
 
-[nearbee startGeofenceMonitoring:^(BOOL result) {
+[nearbee startMonitoringGeoFenceRegions:^(BOOL result) {
 
 }];
 ```
@@ -240,7 +244,7 @@ let nearbee = NearBee.initNearBee()
 
 nearbee.delegate = self
 
-nearbee.stopGeoFenceMonitoring()
+nearbee.stopMonitoringGeoFenceRegions()
 ```
 
 ```objective-c
@@ -248,7 +252,7 @@ NearBee *nearbee = [NearBee initNearBee];
 
 nearbee.delegate = self;
 
-[nearbee stopGeoFenceMonitoring];
+[nearbee stopMonitoringGeoFenceRegions];
 ```
 
 ### Geofence Notification threshold
