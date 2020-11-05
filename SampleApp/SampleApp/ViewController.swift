@@ -33,6 +33,8 @@ class ViewController: UITableViewController {
         nearBee = NearBee.initNearBee()
         nearBee.delegate = self
         nearBee.enableBackgroundNotification(true)
+        // Un-comment this for testing notifications
+        // nearBee.debugMode = true
         nearBee.startScanning()
     }
     

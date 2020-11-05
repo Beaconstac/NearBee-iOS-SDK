@@ -28,6 +28,9 @@ class GeoFenceViewController: UIViewController {
         super.viewDidLoad()
         nearBee.delegate = self
         updateState()
+        
+        nearBee.stopMonitoringGeoFenceRegions()
+        nearBee.startMonitoringGeoFenceRegions()
     }
     
     func updateState() {
@@ -68,7 +71,7 @@ class GeoFenceViewController: UIViewController {
 extension GeoFenceViewController: NearBeeDelegate {
     // Callback for geofence enter event
     func didEnterGeofence(_ geofence: NearBeeGeoFence, _ attachment: GeoFenceAttachment) {
-        
+        NSLog("Entered Geofence region")
     }
     
     func didFindBeacons(_ beacons: [NearBeeBeacon]) {
