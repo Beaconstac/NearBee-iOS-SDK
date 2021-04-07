@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'NearBee'
   s.swift_version = '5.0'
-  s.version      = '0.4.5'
+  s.version      = '0.4.6'
   s.summary      = 'iOS library for Eddystone beacons'
 
   s.homepage     = 'https://github.com/Beaconstac/NearBee-iOS-SDK'
@@ -28,5 +28,5 @@ Pod::Spec.new do |s|
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   
   s.dependency 'EddystoneScanner'
-  s.dependency 'Socket.IO-Client-Swift'
+  s.dependency 'Socket.IO-Client-Swift', '15.2.0'
 end
