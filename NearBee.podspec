@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name         = 'NearBee'
   s.swift_version = '5.3'
-  s.version      = '3.2.10'
+  s.version      = '3.2.11'
   s.summary      = 'iOS library for Eddystone beacons'
 
   s.homepage     = 'https://github.com/Beaconstac/NearBee-iOS-SDK'
@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = 'NearBee/NearBee.framework'
 
   s.dependency 'EddystoneScanner'
-  s.dependency 'Socket.IO-Client-Swift'
+  s.dependency 'Socket.IO-Client-Swift', '15.2.0'
 
   s.frameworks = 'CoreData', 'SystemConfiguration', 'CoreBluetooth', 'CoreLocation', 'UserNotifications', 'SafariServices'
 
