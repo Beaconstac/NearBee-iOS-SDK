@@ -213,34 +213,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-@class NSEntityDescription;
-@class NSManagedObjectContext;
-
-SWIFT_CLASS_NAMED("ActiveBeacon")
-@interface ActiveBeacon : NSManagedObject
-- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-@interface ActiveBeacon (SWIFT_EXTENSION(NearBee))
-@property (nonatomic, copy) NSDate * _Nullable entryTime;
-@property (nonatomic, copy) NSString * _Nullable instance;
-@property (nonatomic, copy) NSString * _Nullable uuid;
-@end
-
-
-SWIFT_CLASS_NAMED("ActiveRegion")
-@interface ActiveRegion : NSManagedObject
-- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-@interface ActiveRegion (SWIFT_EXTENSION(NearBee))
-@property (nonatomic, copy) NSString * _Nullable beaconInstance;
-@property (nonatomic, copy) NSDate * _Nullable entryTime;
-@property (nonatomic, copy) NSString * _Nullable uuid;
-@end
-
 
 SWIFT_PROTOCOL("_TtP7NearBee10Attachment_")
 @protocol Attachment
@@ -313,6 +285,8 @@ enum NearBeeState : NSInteger;
 - (void)fetchAllSavedAttachments:(SWIFT_NOESCAPE void (^ _Nonnull)(NSArray<NearBeeAttachment *> * _Nullable))completion;
 @end
 
+@class NSEntityDescription;
+@class NSManagedObjectContext;
 
 SWIFT_CLASS_NAMED("NearBeeAttachment")
 @interface NearBeeAttachment : NSManagedObject
@@ -696,34 +670,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
-@class NSEntityDescription;
-@class NSManagedObjectContext;
-
-SWIFT_CLASS_NAMED("ActiveBeacon")
-@interface ActiveBeacon : NSManagedObject
-- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-@interface ActiveBeacon (SWIFT_EXTENSION(NearBee))
-@property (nonatomic, copy) NSDate * _Nullable entryTime;
-@property (nonatomic, copy) NSString * _Nullable instance;
-@property (nonatomic, copy) NSString * _Nullable uuid;
-@end
-
-
-SWIFT_CLASS_NAMED("ActiveRegion")
-@interface ActiveRegion : NSManagedObject
-- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-@interface ActiveRegion (SWIFT_EXTENSION(NearBee))
-@property (nonatomic, copy) NSString * _Nullable beaconInstance;
-@property (nonatomic, copy) NSDate * _Nullable entryTime;
-@property (nonatomic, copy) NSString * _Nullable uuid;
-@end
-
 
 SWIFT_PROTOCOL("_TtP7NearBee10Attachment_")
 @protocol Attachment
@@ -796,6 +742,8 @@ enum NearBeeState : NSInteger;
 - (void)fetchAllSavedAttachments:(SWIFT_NOESCAPE void (^ _Nonnull)(NSArray<NearBeeAttachment *> * _Nullable))completion;
 @end
 
+@class NSEntityDescription;
+@class NSManagedObjectContext;
 
 SWIFT_CLASS_NAMED("NearBeeAttachment")
 @interface NearBeeAttachment : NSManagedObject

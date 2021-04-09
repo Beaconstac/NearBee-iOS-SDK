@@ -151,7 +151,6 @@ extension String {
   @objc convenience dynamic public init(hexString: Swift.String, alpha: CoreGraphics.CGFloat = 1.0)
 }
 extension UIDevice {
-  public static let osVersion: Any
   public static let modelName: Swift.String
 }
 @_inheritsConvenienceInitializers @objc(NearBeeGeoFence) public class NearBeeGeoFence : CoreData.NSManagedObject {
@@ -258,44 +257,6 @@ extension NearBeeBusiness {
 @_inheritsConvenienceInitializers @objc(NearBeeAttachment) public class NearBeeAttachment : CoreData.NSManagedObject {
   @objc deinit
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
-}
-@_inheritsConvenienceInitializers @objc(ActiveBeacon) public class ActiveBeacon : CoreData.NSManagedObject {
-  @objc deinit
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
-}
-extension ActiveBeacon {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<NearBee.ActiveBeacon>
-  @objc @NSManaged dynamic public var entryTime: Foundation.Date? {
-    @objc get
-    @objc set
-  }
-  @objc @NSManaged dynamic public var instance: Swift.String? {
-    @objc get
-    @objc set
-  }
-  @objc @NSManaged dynamic public var uuid: Swift.String? {
-    @objc get
-    @objc set
-  }
-}
-@_inheritsConvenienceInitializers @objc(ActiveRegion) public class ActiveRegion : CoreData.NSManagedObject {
-  @objc deinit
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
-}
-extension ActiveRegion {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<NearBee.ActiveRegion>
-  @objc @NSManaged dynamic public var beaconInstance: Swift.String? {
-    @objc get
-    @objc set
-  }
-  @objc @NSManaged dynamic public var entryTime: Foundation.Date? {
-    @objc get
-    @objc set
-  }
-  @objc @NSManaged dynamic public var uuid: Swift.String? {
-    @objc get
-    @objc set
-  }
 }
 extension NearBee.NearBeeState : Swift.Equatable {}
 extension NearBee.NearBeeState : Swift.Hashable {}
